@@ -2,17 +2,13 @@ import requests
 
 def fetch():
     try:
-        r = requests.get('http://api.open-notify.org/iss-now.json', timeout=6)
-        # check if GET worked
-        print("Status of GET:", r.status_code)
+        header = {"User-Agent": "UmarLearningProject/0.1 (ISS source comparison test)"}
+        r = requests.get('https://api.wheretheiss.at/v1/satellites/25544', timeout=6, headers=header)
 
-
-        print("Content:")
-        print(r.text)
         data = r.json()
         timestamp = data["timestamp"]
-        latitude = float(data["iss_position"]["latitude"])
-        longitude = float(data["iss_position"]['longitude'])
+        latitude = float(data["latitude"])
+        longitude = float(data['longitude'])
         return timestamp, latitude, longitude
 
     except Exception as e:

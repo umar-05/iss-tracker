@@ -25,8 +25,9 @@ def insert_position(timestamp, latitude, longitude):
 
     try:
         cursor.execute("INSERT OR IGNORE INTO iss_positions (timestamp, latitude, longitude) VALUES (?, ?, ?)", (timestamp, latitude, longitude))
-    except:
+    except Exception as e:
         print("Error inserting :(")
+        print(e)
         connection.close()
 
     connection.commit()
